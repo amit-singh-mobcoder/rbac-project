@@ -7,9 +7,3 @@ export const Constants = {
     APPLICATION_PORT: process.env.APPLICATION_PORT || 4000,
     JWT_SECRET_KEY: process.env.JWT_SECRET_KEY
 }
-
-export const Roles = {
-    admin: "admin",
-    manager: "manager",
-    user: "user"
-}

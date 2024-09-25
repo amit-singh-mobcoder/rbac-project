@@ -1,4 +1,5 @@
 import { Constants } from "../constants";
+import RoleRepository from "../repositories/role.repository";
 import UserRepository from "../repositories/user.repository";
 import { ApiError } from "../utils/api-error";
 import { BcryptWrapper } from "../utils/bcrypt-wrapper";
@@ -8,9 +9,11 @@ import { Messages } from "../utils/messages";
 
 export default class AuthService {
     _userRepository: UserRepository;
+    _roleRepository: RoleRepository;
 
-    constructor(userRepository: UserRepository){
+    constructor(userRepository: UserRepository, roleRepository: RoleRepository){
         this._userRepository = userRepository;
+        this._roleRepository = roleRepository;
     }
 
     async registerUser(requestObject: any){
@@ -19,6 +22,10 @@ export default class AuthService {
 
         if(!username || !password || !role) {
             throw new ApiError(HttpStatusCodes.BAD_REQUEST, Messages.GENERIC.BAD_REQUEST);
+        }
+
+        if(typeof username !== 'string' || typeof password !== 'string' || typeof role !== 'string'){
+            throw new ApiError(HttpStatusCodes.BAD_REQUEST, Messages.VALIDATION.INVALID_INPUT)
         }
 
         const existedUser = await this._userRepository.findUserByUsername(username);
