@@ -12,4 +12,9 @@ export default class UserRepository {
         const user = await UserModel.findOne({username});
         return user;
     }
+
+    async findUserById(id: string): Promise<any>{
+        const user = await UserModel.findById(id);
+        return user;
+    }
 }

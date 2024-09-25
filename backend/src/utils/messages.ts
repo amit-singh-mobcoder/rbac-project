@@ -7,6 +7,7 @@ export const Messages = {
         PASSWORD_CHANGED: 'Password changed successfully.',
         PASSWORD_RESET_SUCCESS: 'Password reset successfully.',
         PASSWORD_RESET_FAILED: 'Password reset failed.',
+        USER_FETCHED: 'User fetched successfully. '
     },
 
     AUTH: {

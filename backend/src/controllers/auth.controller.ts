@@ -39,7 +39,8 @@ export default class AuthController {
             const cookieOptions = {
                 httpOnly: true,
                 maxAge: 5 * 60 * 1000,
-                secure: false,
+                secure: true,
+                path: '/'
             }
             return res.status(HttpStatusCodes.OK).cookie("accessToken", token, cookieOptions).json(new ApiResponse(HttpStatusCodes.OK, token, `${user.username}, ${Messages.AUTH.LOGIN_SUCCESS}`))
         } catch (error) {

@@ -7,7 +7,7 @@ import { Messages } from "../utils/messages";
 
 export const verifyJWT = async(req: Request, res: Response, next: NextFunction) => {
     try {
-        const token = req.cookies("accessToken") || req.header("Authorization")?.replace("Bearer ", "");
+        const token = req.cookies.accessToken || req.header("Authorization")?.replace("Bearer ", "");
         if(!token){
             throw new ApiError(HttpStatusCodes.BAD_REQUEST, Messages.AUTH.TOKEN_MISSING)
         }
