@@ -1,6 +1,6 @@
 export const Messages = {
     USER: {
-        USER_CREATED: 'User created successfully',
+        USER_CREATED: 'User created successfully.',
         USER_NOT_FOUND: 'User not found.',
         USER_ALREADY_EXISTS: 'User already exists with this username.',
         PROFILE_UPDATED: 'User profile updated successfully.',
@@ -8,6 +8,10 @@ export const Messages = {
         PASSWORD_RESET_SUCCESS: 'Password reset successfully.',
         PASSWORD_RESET_FAILED: 'Password reset failed.',
         USER_FETCHED: 'User fetched successfully. '
+    },
+
+    ROLE: {
+      NOT_FOUND: 'Role not found.',
     },
 
     AUTH: {

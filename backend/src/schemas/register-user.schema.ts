@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const joiUserSchema = Joi.object({
+export const registerUserSchema = Joi.object({
   username: Joi.string().min(3).max(30).required().messages({
     "string.base": "Username must be a string.",
     "string.empty": "Username cannot be empty.",
@@ -16,9 +16,11 @@ export const joiUserSchema = Joi.object({
     "any.required": "Password is required.",
   }),
 
-  roles: Joi.string().required().messages({
-    "string.base": "Role must be a string.",
-    "string.empty": "Role cannot be empty.",
-    "any.required": "Role is required."
+  roles: Joi.array().items(Joi.string().valid("admin", "manager", "employee")).required().messages({
+    "array.base": "Roles must be an array.",
+    "array.empty": "Roles cannot be empty.",
+    "any.required": "Roles are required.",
+    "string.base": "Each role must be a string.",
+    "any.only": "Each role must be one of Teacher, Student, or Institute."
   }),
 });
