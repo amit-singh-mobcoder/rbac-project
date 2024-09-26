@@ -13,11 +13,17 @@ export default class AuthController {
 
     async registerUser(req: Request, res: Response, next: NextFunction){
         try {
-            const { username, password, roles } = req.body;
-            const user = await this._authService.registerUser({username, password, roles})
+            const user = await this._authService.registerUser(req.body);
+            return res.status(HttpStatusCodes.CREATED).json(new ApiResponse(HttpStatusCodes.OK, user, Messages.USER.USER_CREATED))   
+        } catch (error) {
+            next(error)
+        }
+    }
 
-            return res.status(HttpStatusCodes.CREATED).json(new ApiResponse(HttpStatusCodes.OK, user, Messages.USER.USER_CREATED))
-            
+    async login(req: Request, res: Response, next: NextFunction){
+        try {
+            const response = await this._authService.login(req.body)
+            return res.status(HttpStatusCodes.OK).json(new ApiResponse(HttpStatusCodes.OK, response , Messages.AUTH.LOGIN_SUCCESS))
         } catch (error) {
             next(error)
         }

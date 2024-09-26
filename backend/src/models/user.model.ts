@@ -4,7 +4,7 @@ import { IRole } from "./role.model";
 export interface IUser extends Document {
   username: string;
   password: string;
-  roles: IRole[];
+  role: IRole;
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema(
@@ -17,16 +17,15 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+      select: false,
     },
-    roles: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Role",
-      },
-    ],
+    role: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Role",
+    },
   },
   { timestamps: true }
 );
 
-userSchema.index({ username: 1 })
+userSchema.index({ username: 1 });
 export const UserModel = mongoose.model<IUser>("User", userSchema);

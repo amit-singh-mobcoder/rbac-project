@@ -1,15 +1,21 @@
-import { Request, Response, NextFunction } from "express";
 import Joi from "joi";
+import { Request, Response, NextFunction } from "express";
 import { ApiError } from "../utils/api-error";
 import { HttpStatusCodes } from "../utils/http-status-codes";
 
-export const validateRequest = (schema: Joi.ObjectSchema) => {
-    return (req: Request, res: Response, next: NextFunction) => {
-        const { error } = schema.validate(req.body);
-        if( error ) {
-            throw new ApiError(HttpStatusCodes.BAD_REQUEST, error.details[0].message)
-        }
+export const validate = (schema: Joi.ObjectSchema) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const { error } = schema.validate(req.body, { abortEarly: false });
 
-        next()
+    if (error) {
+      const errors = error.details.map((detail) => detail.message);
+      throw new ApiError(
+        HttpStatusCodes.BAD_REQUEST,
+        "Validation failed",
+        errors
+      );
     }
-}
+
+    next();
+  };
+};
