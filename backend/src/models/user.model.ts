@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose";
 import { IRole } from "./role.model";
 
-interface IUser extends Document {
+export interface IUser extends Document {
   username: string;
   password: string;
   roles: IRole[];
