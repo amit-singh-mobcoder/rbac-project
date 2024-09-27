@@ -25,4 +25,8 @@ export default class UserRepository {
     const user = UserModel.findById(id);
     return user;
   }
+
+  async findByIdAndDelete(id: string): Promise<void> {
+    await UserModel.findByIdAndDelete(id);
+  }
 }

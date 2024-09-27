@@ -10,6 +10,7 @@ export const Messages = {
     USER_FETCHED: "User fetched successfully.",
     INVALID_USERNAME: "Username is not valid.",
     INVALID_PASSWORD: "Password is not valid.",
+    USER_DELETED: 'User deleted successfully.'
   },
 
   ROLE: {

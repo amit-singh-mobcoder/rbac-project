@@ -25,4 +25,13 @@ export default class UserController {
       next(error);
     }
   }
+
+  async deleteUser(req: Request, res: Response, next: NextFunction){
+    try {
+      await this._userService.deleteUser(req.params.id)
+      return res.status(HttpStatusCodes.OK).json(new ApiResponse(HttpStatusCodes.OK, {}, ` user: ${req.params.id}, ${Messages.USER.USER_DELETED}`))
+    } catch (error) {
+      next(error)
+    }
+  }
 }
