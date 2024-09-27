@@ -12,16 +12,15 @@ export const verifyJWT = async (
   next: NextFunction
 ) => {
   try {
-    const token = req.header("Authorization")?.replace("Bearer ", "");
-    if (!token) {
-      throw new ApiError(
-        HttpStatusCodes.BAD_REQUEST,
-        Messages.AUTH.TOKEN_MISSING
-      );
+    const authHeader = req.header("Authorization")
+    if(!authHeader || !authHeader.startsWith('Bearer ')){
+      throw new ApiError(HttpStatusCodes.BAD_REQUEST, Messages.AUTH.TOKEN_MISSING)
     }
+    const token = authHeader.replace('Bearer ', "");
 
     const secretKey = Constants.JWT_SECRET_KEY;
     const decode = JwtWrapper.verify(token, secretKey);
+    console.log(decode)
 
     if (typeof decode !== "object" || !decode) {
       throw new ApiError(
