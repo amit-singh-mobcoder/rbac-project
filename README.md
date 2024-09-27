@@ -1,1 +1,5 @@
-# RBAC ( Role Based Access Control)
+# Role Based Access Control
+Effectively managing user access and permissions is a fundamental requirement for any computing system. Once users have logged in, it becomes imperative to establish mechanisms that restrict their access to specific resources, taking into account their unique identities and attributes. However, the critical question arises when considering how to secure routes within the system — should our authorization strategy be primarily based on user roles, organizational units, or geographical locations?
+
+## What is Role-Based Access Control?
+In simple words, Role-Based Access Control (RBAC) is like giving different keys to different people in a big building (organization). Lets understand this by taking a hospital as an example. Each person in a hospital has a specific role or job, like a patient, doctor, nurse, or receptionist. These roles determine what areas they can access and what they can do inside the hospital. For example, doctors can enter patient rooms and update medical records, but they can’t do what receptionists do, like scheduling appointments. It’s a way to keep things organized and safe; you can’t use doctor’s key to access the reception desk. RBAC ensures that only authorized people can access specific places or information, making everything work smoothly and securely.
