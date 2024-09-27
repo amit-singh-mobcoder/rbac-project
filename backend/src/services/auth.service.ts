@@ -39,7 +39,9 @@ export default class AuthService {
       hashed,
       roleDoc,
     });
-    return user;
+    const responseUser = user?.toObject();
+    delete responseUser.password;
+    return responseUser;
   }
 
   async login(userBody: any) {
@@ -73,6 +75,8 @@ export default class AuthService {
     const secretKey = String(Constants.JWT_SECRET_KEY);
     const token = JwtWrapper.sign(payload, secretKey, { expiresIn: "1h" });
 
-    return { user, token };
+    const responseUser = user.toObject();
+    delete responseUser.password;
+    return { user: responseUser, token };
   }
 }
