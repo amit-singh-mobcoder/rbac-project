@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IRole extends Document {
   role: string;
-  permissions: {name: string, description?: string};
+  permissions: [{name: string, description?: string}];
 }
 
 const roleSchema: Schema<IRole> = new mongoose.Schema(

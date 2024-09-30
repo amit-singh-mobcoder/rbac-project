@@ -16,6 +16,13 @@ export const Messages = {
   ROLE: {
     NOT_FOUND: "Role not found.",
     INVALID_ROLE: "Role is invalid.",
+    CREATED: 'New role created successfully.',
+    ALREADY_EXISTS: 'Role already exists.',
+    PERMISSION_EXISTS: 'Permission already exists.',
+    PERMISSION_NOT_FOUND: 'Permission is not present in the role.',
+    UPDATED: 'Role updated successfully.',
+    ROLES_FETECHED: 'All Roles fetched successfully.',
+    PERMISSIONS_FETCHED: 'Role all permissions fetched successfully.',
   },
 
   AUTH: {
@@ -33,6 +40,7 @@ export const Messages = {
     PASSWORD_REQUIRED: "Password is required.",
     NAME_REQUIRED: "Name is required.",
     PASSWORD_TOO_SHORT: "Password must be at least 8 characters long.",
+    INVALID_OBJECT_ID: 'Invalid object id',
   },
 
   DATABASE: {
