@@ -29,7 +29,8 @@ export const verifyJWT = async (
       );
     }
 
-    const { id, roleId } = decode as { id: string; roleId: IRole };
+    let { id, roleId } = decode as { id: string; roleId: string };
+    roleId = roleId.toString();
     req.user = { id, roleId };
 
     next();

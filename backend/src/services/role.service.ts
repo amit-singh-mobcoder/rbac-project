@@ -91,4 +91,16 @@ export default class RoleService {
         const roles = await this._roleRepository.rolesList();
         return roles;
     }
+
+    async getRole(id: string){
+        if(!isValidObjectId(id)){
+            throw new ApiError(HttpStatusCodes.BAD_REQUEST, Messages.VALIDATION.INVALID_OBJECT_ID)
+        }
+        const role = await this._roleRepository.findRoleById(id);
+        if(!role){
+            throw new ApiError(HttpStatusCodes.NOT_FOUND, Messages.ROLE.NOT_FOUND)
+        }
+
+        return role;
+    }
 }
