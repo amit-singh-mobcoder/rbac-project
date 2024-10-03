@@ -49,4 +49,18 @@ export default class UserController {
       next(error)
     }
   }
+
+  // to remove user permission
+  async removePermission(req: Request, res: Response, next: NextFunction){
+    try {
+      const { id } = req.params;
+      const { name } = req.body;
+
+      const updatedUserDoc = await this._userService.removePermission({id, name});
+      return res.status(HttpStatusCodes.OK).json(new ApiResponse(HttpStatusCodes.OK, updatedUserDoc, Messages.USER.PERMISSION_UPDATED))
+
+    } catch (error) {
+      next(error)
+    }
+  }
 }

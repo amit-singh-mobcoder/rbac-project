@@ -21,4 +21,17 @@ export default class UserService {
         }
         await this._userRepository.findByIdAndDelete(id);
     }
+
+    async removePermission(data: {id: string, name: string}){
+        const {id, name} = data;
+        const user = await this._userRepository.findById(id);
+        const permissions = user?.permissions;
+
+        const updatedPermissions = permissions?.filter(permission => permission !== name)
+        let updatedUser;
+        if(Array.isArray(updatedPermissions)){
+            updatedUser = await this._userRepository.findByIdRemovePermission(id, updatedPermissions)
+        }
+        return updatedUser;
+    }
 }

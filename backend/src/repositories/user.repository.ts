@@ -2,11 +2,12 @@ import { UserModel, IUser } from "../models/user.model";
 
 export default class UserRepository {
   async createUser(userDetails: any): Promise<IUser | null> {
-    const { username, hashed, roleDoc } = userDetails;
+    const { username, hashed, roleDoc, permissions } = userDetails;
     const user = new UserModel({
       username,
       password: hashed,
       role: roleDoc,
+      permissions
     });
     return user.save();
   }
@@ -28,5 +29,10 @@ export default class UserRepository {
 
   async findByIdAndDelete(id: string): Promise<void> {
     await UserModel.findByIdAndDelete(id);
+  }
+
+  async findByIdRemovePermission(id: string, updatedPermissions: string[]){
+    const updatedUser = await UserModel.findByIdAndUpdate(id, {permissions: updatedPermissions}, {new: true});
+    return updatedUser;
   }
 }

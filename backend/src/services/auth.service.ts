@@ -32,12 +32,14 @@ export default class AuthService {
       throw new ApiError(HttpStatusCodes.NOT_FOUND, Messages.ROLE.INVALID_ROLE);
     }
 
-    const hashed = await BcryptWrapper.hash(password, 10);
+    const permissions = roleDoc.permissions.map((item) => item.name);
 
+    const hashed = await BcryptWrapper.hash(password, 10);
     const user = await this._userRepository.createUser({
       username,
       hashed,
       roleDoc,
+      permissions
     });
     const responseUser = user?.toObject();
     delete responseUser.password;

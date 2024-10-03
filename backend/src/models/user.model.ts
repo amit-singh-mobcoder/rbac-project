@@ -5,6 +5,7 @@ export interface IUser extends Document {
   username: string;
   password: string;
   role: IRole;
+  permissions: Array<string>
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema(
@@ -23,6 +24,11 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Role",
     },
+    permissions: [
+      {
+        type: String,
+      }
+    ]
   },
   { timestamps: true }
 );
