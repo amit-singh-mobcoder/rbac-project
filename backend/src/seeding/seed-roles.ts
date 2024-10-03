@@ -9,29 +9,29 @@ export const seedRoles = async () => {
       permissions: [
         { name: "create:users", description: "Permission to create users" },
         { name: "delete:users", description: "Permission to delete users" },
+        { name: "update:users", description: "Permission to update users" },
+        { name: "read:users", description: "Permission to view users" },
+        { name: "manage:permissions", description: "Permission to manage user permissions" },
+        { name: "create:roles", description: "Permission to create roles" },
+        { name: "delete:roles", description: "Permission to delete roles" },
+        { name: "update:roles", description: "Permission to update roles" },
+        { name: "read:roles", description: "Permission to view roles" },
       ],
     },
     {
       role: "manager",
       permissions: [
-        {
-          name: "read:employees",
-          description: "Permission to read employees data",
-        },
-        {
-          name: "update:employees",
-          description: "Permission to update employees data",
-        },
+        { name: "read:employees", description: "Permission to read employee data" },
+        { name: "update:employees", description: "Permission to update employee data" },
+        { name: "create:employees", description: "Permission to create employees" },
+        { name: "delete:employees", description: "Permission to delete employees" },
       ],
     },
     {
       role: "employee",
       permissions: [
         { name: "read:profile", description: "Permission to read own profile" },
-        {
-          name: "update:profile",
-          description: "Permission to update own profile",
-        },
+        { name: "update:profile", description: "Permission to update own profile" },
       ],
     },
   ];
