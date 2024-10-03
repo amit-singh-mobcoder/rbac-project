@@ -31,7 +31,8 @@ export const Messages = {
     LOGIN_FAILED: "Invalid credentials, please try again.",
     UNAUTHORIZED: "You are not authorized to access this resource.",
     TOKEN_MISSING: "Authentication token is missing.",
-    TOKEN_INVALID: "Authentication token is invalid or expired.",
+    TOKEN_INVALID: "Authentication token is invalid.",
+    TOKEN_EXPIRED: "Authentication token is expired",
     LOGOUT_SUCCESS: "Logout successful.",
   },
 
