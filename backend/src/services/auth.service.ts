@@ -73,7 +73,7 @@ export default class AuthService {
       roleId: user.role,
     };
     const secretKey = String(Constants.JWT_SECRET_KEY);
-    const token = JwtWrapper.sign(payload, secretKey, { expiresIn: "1h" });
+    const token = JwtWrapper.sign(payload, secretKey, { expiresIn: "1d" });
 
     const responseUser = user.toObject();
     delete responseUser.password;
