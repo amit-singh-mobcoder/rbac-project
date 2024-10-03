@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import Navbar from '../../components/Navbar'
 import axios from 'axios'
+import { RoleContext } from '../../context/Role';
 
 function Admin() {
   const [user, setUser] = useState({});
+  const {userRole} = useContext(RoleContext)
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -28,6 +30,9 @@ function Admin() {
   return (
     <div>
       <Navbar username={user.username}/>
+      <div className='min-h-screen flex justify-center items-center w-full'>
+        <h1 className='text-[150px] font-bold'>Role: {userRole}</h1>
+      </div>
     </div>
   )
 }

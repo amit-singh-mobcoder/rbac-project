@@ -1,51 +1,60 @@
-import React,{useState, useEffect} from 'react'
-import { useNavigate } from 'react-router-dom'
-import Admin from './Admin'
-import Manager from './Manager'
-import Employee from './Employee'
-import axios from 'axios'
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Admin from './Admin';
+import Manager from './Manager';
+import Employee from './Employee';
+import axios from 'axios';
+import { RoleContext } from '../../context/Role';
 
 function Dashboard() {
-
-  const [userRole, setUserRole] = useState("");
-  const navigate = useNavigate()
+  const {userRole, setUserRole} = useContext(RoleContext);
+  // const [userRole, setUserRole] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
-    if(!accessToken){
-      navigate('/login')
+    if (!accessToken) {
+      navigate('/login');
+      return;
     }
-  })
 
-  useEffect(() => {
-    const fetchUserRole = async() => {
+    const fetchUserRole = async () => {
       try {
-        const accessToken = localStorage.getItem('accessToken');
         const response = await axios.get('http://localhost:8000/api/v1/user/role', {
-          headers: {
-            'Authorization': `Bearer ${accessToken}`
-          }
-        })
-
-        console.log(response);
-        setUserRole(response.data.data.role)
+          headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        setUserRole(response.data.data.role);
       } catch (error) {
-        console.error('Error while fetching user-roles', error)
+        if (error.response?.status === 401) {
+          alert('Your session has expired, please login again');
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("role_id");
+          localStorage.removeItem("user_id");
+          navigate("/");
+        } else {
+          console.error('Error fetching user role:', error);
+          setError('Failed to fetch user role');
+        }
+      } finally {
+        setLoading(false);
       }
-    }
+    };
 
     fetchUserRole();
-  }, [])
+  }, [navigate]);
 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
-  return (
-    <div>
+  const roleComponents = {
+    admin: <Admin />,
+    manager: <Manager />,
+    employee: <Employee />,
+  };
 
-      {userRole === 'admin' && <Admin />}
-      {userRole === 'manager' && <Manager/>}
-      {userRole === 'employee' && <Employee/>}
-    </div>
-  )
+  return <div>{roleComponents[userRole] || <p>Invalid role</p>}</div>;
 }
 
-export default Dashboard
+export default Dashboard;

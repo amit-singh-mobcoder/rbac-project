@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import Navbar from '../../components/Navbar'
 import axios from 'axios'
+import { RoleContext } from '../../context/Role';
 
 function Employee() {
+  const { userRole } = useContext(RoleContext)
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -28,6 +30,9 @@ function Employee() {
   return (
     <div>
       <Navbar username={user.username}/>
+      <div className='min-h-screen flex justify-center items-center w-full'>
+        <h1 className='text-[150px] font-bold'>Role: {userRole}</h1>
+      </div>
     </div>
   )
 }
