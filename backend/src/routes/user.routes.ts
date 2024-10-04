@@ -10,7 +10,7 @@ import RoleService from "../services/role.service";
 const roleRepository = new RoleRepository();
 const roleService = new RoleService(roleRepository);
 const userRepository = new UserRepository();
-const userService = new UserService(userRepository);
+const userService = new UserService(userRepository, roleRepository);
 const userController = new UserController(userService, roleService);
 const router = express.Router();
 
@@ -36,4 +36,9 @@ router
     checkPermission("manage:permissions"),
     userController.removePermission.bind(userController)
   );
+
+router.route('/:id/permission/add').patch(verifyJWT, checkPermission("manage:permissions"), userController.addPermission.bind(userController))
+
+
+router.route('/').get(userController.usersList.bind(userController));
 export default router;

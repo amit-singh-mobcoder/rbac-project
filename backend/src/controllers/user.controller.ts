@@ -63,4 +63,28 @@ export default class UserController {
       next(error)
     }
   }
+
+  // to add permission
+  async addPermission(req: Request, res: Response, next: NextFunction){
+    try {
+      const { id } = req.params;
+      const { name } = req.body;
+
+      const updatedDoc = await this._userService.addPermission({id, name});
+      return res.status(HttpStatusCodes.OK).json(new ApiResponse(HttpStatusCodes.OK, updatedDoc, Messages.USER.PERMISSION_UPDATED))
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  // to fetch list of users
+  async usersList(req: Request, res: Response, next: NextFunction){
+    try {
+      const role = String(req.query.role);
+      const users = await this._userService.usersList(role);
+      return res.status(HttpStatusCodes.OK).json(new ApiResponse(HttpStatusCodes.OK, users, Messages.USER.USER_FETCHED));
+    } catch (error) {
+      next(error)
+    }
+  }
 }

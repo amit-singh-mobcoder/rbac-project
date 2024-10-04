@@ -35,4 +35,13 @@ export default class UserRepository {
     const updatedUser = await UserModel.findByIdAndUpdate(id, {permissions: updatedPermissions}, {new: true});
     return updatedUser;
   }
+
+  async findByIdAddPermission(id: string, updatedPermissions: string[]):Promise<IUser|null>{
+    const updatedUserDoc = await UserModel.findByIdAndUpdate(id, {permissions: updatedPermissions}, {new: true});
+    return updatedUserDoc;
+  }
+
+  async usersList():Promise<IUser[]|null>{
+    return UserModel.find()
+  }
 }
