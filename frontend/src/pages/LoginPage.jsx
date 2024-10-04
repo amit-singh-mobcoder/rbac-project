@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CircleArrowLeft } from "lucide-react";
+import { UserContext } from '../context/User'
 
 function LoginPage() {
   const [formState, setFormState] = useState({ username: "", password: "" });
@@ -11,6 +12,7 @@ function LoginPage() {
   const [validationError, setValidationError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext)
 
   const showToast = (type, message) => {
     toast[type](message, {
@@ -42,8 +44,9 @@ function LoginPage() {
           password,
         }
       );
-      console.log(response);
-
+      // console.log("response",response);
+      setUser(response.data.data.user);
+      console.log("userDetails: ",response.data.data.user)
       localStorage.setItem("accessToken", response.data.data.token);
       localStorage.setItem("user_id", response.data.data.user._id);
       localStorage.setItem("role_id", response.data.data.user.role);

@@ -2,10 +2,11 @@ import React, { useEffect, useState, useContext } from 'react'
 import Navbar from '../../components/Navbar'
 import axios from 'axios'
 import { RoleContext } from '../../context/Role';
+import { UserContext } from '../../context/User';
 
 function Manager() {
   const { userRole } = useContext(RoleContext)
-  const [user, setUser] = useState({});
+  const { user } = useContext(UserContext)
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -29,7 +30,7 @@ function Manager() {
 
   return (
     <div>
-      <Navbar username={user.username}/>
+      <Navbar username={user.username} role={userRole}/>
       <div className='min-h-screen flex justify-center items-center w-full'>
         <h1 className='text-[150px] font-bold'>Role: {userRole}</h1>
       </div>
