@@ -4,9 +4,10 @@ import axios from "axios";
 import { RoleContext } from "../../context/Role";
 import { UserContext } from "../../context/User";
 import TableLayout from "../../components/TableLayout";
+import RoleManagement from "../../modules/RoleManagement";
 
 function Admin() {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const { userRole } = useContext(RoleContext);
   const [employeesList, setEmployeesList] = useState([]);
   const [employeeDefaultPermissions, setEmployeeDefaultPermissions] = useState(
@@ -16,11 +17,28 @@ function Admin() {
   const [managerDefaultPermissions, setManagerDefaultPermissions] = useState([]);
 
   useEffect(() => {
+    fetchUserDetails()
     fetchEmployeesList();
     fetchEmployeeRoleDefaultPermission();
     fetchManagersList();
     fetchManagersRoleDefaultPermission();
   }, []);
+
+  const fetchUserDetails = async () => {
+    try {
+      const accessToken = localStorage.getItem('accessToken')
+      const response = await axios.get('http://localhost:8000/api/v1/user/profile', {
+        headers: {
+          Authorization : `Bearer ${accessToken}`
+        }
+      })
+      
+      console.log("current user details: ",response.data.data);
+      setUser(response.data.data)
+    } catch (error) {
+      console.log('Error while fetching user details', error)
+    }
+  }
 
   const fetchEmployeesList = async () => {
     try {
@@ -45,7 +63,7 @@ function Admin() {
       // const id = response.data.data[0].role;
       localStorage.setItem("manager_role_id", response.data.data[0].role);
     } catch (error) {
-      console.error("Error while fetching employees list", error);
+      console.error("Error while fetching managers list", error);
     }
   };
 
@@ -86,7 +104,7 @@ function Admin() {
       setManagerDefaultPermissions(response.data.data);
     } catch (error) {
       console.log(
-        "Error while fetching default employee role permissions",
+        "Error while fetching default manager role permissions",
         error
       );
     }
@@ -102,6 +120,9 @@ function Admin() {
         {/* Managers Table */}
         <h1 className="text-3xl font-bold mb-4 text-start mt-4">Managers list</h1>
         <TableLayout userList={managersList} userDefaultPermissions={managerDefaultPermissions} roleName="manager" />
+        {/* Role management */}
+        <h1 className="text-3xl font-bold mb-4 text-start mt-4">Role management</h1>
+        <RoleManagement/>
       </div>
     </div>
   );

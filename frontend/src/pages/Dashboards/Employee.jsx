@@ -8,7 +8,7 @@ import { EllipsisVertical } from 'lucide-react';
 
 function Employee() {
   const { userRole } = useContext(RoleContext)
-  const { user } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -33,7 +33,7 @@ function Employee() {
   return (
 <div>
   <Navbar username={user.username} role={userRole} />
-  <div className="min-h-screen flex justify-center items-center w-full bg-gray-100">
+  <div className="min-h-screen flex flex-col justify-center items-center w-full bg-gray-100">
     {/* User Card */}
     <div className="min-w-[300px] max-w-[400px] border shadow-lg p-6 gap-4 flex flex-col items-center bg-white border-gray-200 rounded-lg">
       <div className='flex justify-end items-end min-w-full'><EllipsisVertical className='cursor-pointer'/></div>
@@ -51,6 +51,7 @@ function Employee() {
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus eum quia quaerat minus, odio earum iusto dolor dolores excepturi officiis harum impedit recusandae ipsam.
       </p>
     </div>
+    
   </div>
 </div>
 
