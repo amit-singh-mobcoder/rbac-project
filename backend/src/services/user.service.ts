@@ -25,35 +25,35 @@ export default class UserService {
         await this._userRepository.findByIdAndDelete(id);
     }
 
-    async removePermission(data: {id: string, name: string}){
-        const {id, name} = data;
-        const user = await this._userRepository.findById(id);
-        const permissions = user?.permissions;
+    // async removePermission(data: {id: string, name: string}){
+    //     const {id, name} = data;
+    //     const user = await this._userRepository.findById(id);
+    //     const permissions = user?.permissions;
 
-        const updatedPermissions = permissions?.filter(permission => permission !== name)
-        let updatedUser;
-        if(Array.isArray(updatedPermissions)){
-            updatedUser = await this._userRepository.findByIdRemovePermission(id, updatedPermissions)
-        }
-        return updatedUser;
-    }
+    //     const updatedPermissions = permissions?.filter(permission => permission !== name)
+    //     let updatedUser;
+    //     if(Array.isArray(updatedPermissions)){
+    //         updatedUser = await this._userRepository.findByIdRemovePermission(id, updatedPermissions)
+    //     }
+    //     return updatedUser;
+    // }
 
-    async addPermission(data: {id: string, name: string}){
-        const {id, name} = data;
-        const user = await this._userRepository.findById(id);
-        const permissions = user?.permissions;
+    // async addPermission(data: {id: string, name: string}){
+    //     const {id, name} = data;
+    //     const user = await this._userRepository.findById(id);
+    //     const permissions = user?.permissions;
         
-        let updatedUser;
-        if(Array.isArray(permissions)){
-            if(permissions.includes(name)){
-                throw new ApiError(HttpStatusCodes.CONFLICT, 'Permission already exist')
-            } else {
-                permissions.push(name);
-                updatedUser = await this._userRepository.findByIdAddPermission(id, permissions)
-            }
-        }
-        return updatedUser;
-    }
+    //     let updatedUser;
+    //     if(Array.isArray(permissions)){
+    //         if(permissions.includes(name)){
+    //             throw new ApiError(HttpStatusCodes.CONFLICT, 'Permission already exist')
+    //         } else {
+    //             permissions.push(name);
+    //             updatedUser = await this._userRepository.findByIdAddPermission(id, permissions)
+    //         }
+    //     }
+    //     return updatedUser;
+    // }
 
     async usersList(role:string){
         const usersDocList = await this._userRepository.usersList();
@@ -73,5 +73,12 @@ export default class UserService {
         }
         // console.log(users)
         return users;
-    } 
+    }
+    
+    async managePermissions(data: {userId: string, permissions: string[]}){
+        const {userId, permissions} = data;
+        // const userDoc = await this._userRepository.findById(userId);
+        const updatedUser = await this._userRepository.findByIdUpdatePermissions(userId, permissions);
+        return updatedUser;
+    }
 }

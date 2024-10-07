@@ -29,15 +29,17 @@ router
 router
   .route("/role")
   .get(verifyJWT, userController.userRole.bind(userController));
-router
-  .route("/:id/permission")
-  .patch(
-    verifyJWT,
-    checkPermission("manage:permissions"),
-    userController.removePermission.bind(userController)
-  );
+// router
+//   .route("/:id/permission")
+//   .patch(
+//     verifyJWT,
+//     checkPermission("manage:permissions"),
+//     userController.removePermission.bind(userController)
+//   );
 
-router.route('/:id/permission/add').patch(verifyJWT, checkPermission("manage:permissions"), userController.addPermission.bind(userController))
+// router.route('/:id/permission/add').patch(verifyJWT, checkPermission("manage:permissions"), userController.addPermission.bind(userController))
+
+router.route('/:userId/permissions').patch(verifyJWT, checkPermission("manage:permissions"), userController.managePermissions.bind(userController))
 
 
 router.route('/').get(userController.usersList.bind(userController));

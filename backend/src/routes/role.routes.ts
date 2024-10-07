@@ -11,7 +11,7 @@ const roleController = new RoleController(roleService);
 const router = express.Router();
 
 router.route('/role').post(roleController.newRole.bind(roleController));
-router.route('/roles').get(roleController.getRoles.bind(roleController))
+router.route('/roles').get(verifyJWT, checkPermission("read:roles"), roleController.getRoles.bind(roleController))
 
 router.route('/role/:id/permissions').get(verifyJWT, checkPermission("read:roles"), roleController.getRolePermissions.bind(roleController))
 

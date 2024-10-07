@@ -31,17 +31,22 @@ export default class UserRepository {
     await UserModel.findByIdAndDelete(id);
   }
 
-  async findByIdRemovePermission(id: string, updatedPermissions: string[]){
-    const updatedUser = await UserModel.findByIdAndUpdate(id, {permissions: updatedPermissions}, {new: true});
-    return updatedUser;
-  }
+  // async findByIdRemovePermission(id: string, updatedPermissions: string[]){
+  //   const updatedUser = await UserModel.findByIdAndUpdate(id, {permissions: updatedPermissions}, {new: true});
+  //   return updatedUser;
+  // }
 
-  async findByIdAddPermission(id: string, updatedPermissions: string[]):Promise<IUser|null>{
-    const updatedUserDoc = await UserModel.findByIdAndUpdate(id, {permissions: updatedPermissions}, {new: true});
-    return updatedUserDoc;
-  }
+  // async findByIdAddPermission(id: string, updatedPermissions: string[]):Promise<IUser|null>{
+  //   const updatedUserDoc = await UserModel.findByIdAndUpdate(id, {permissions: updatedPermissions}, {new: true});
+  //   return updatedUserDoc;
+  // }
 
   async usersList():Promise<IUser[]|null>{
     return UserModel.find()
+  }
+
+  async findByIdUpdatePermissions(userId:string, permissions: string[]):Promise<IUser|null>{
+    const updatedUserDoc = await UserModel.findByIdAndUpdate(userId, {permissions: permissions}, {new: true});
+    return updatedUserDoc;
   }
 }

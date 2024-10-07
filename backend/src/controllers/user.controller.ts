@@ -51,31 +51,31 @@ export default class UserController {
   }
 
   // to remove user permission
-  async removePermission(req: Request, res: Response, next: NextFunction){
-    try {
-      const { id } = req.params;
-      const { name } = req.body;
+  // async removePermission(req: Request, res: Response, next: NextFunction){
+  //   try {
+  //     const { id } = req.params;
+  //     const { name } = req.body;
 
-      const updatedUserDoc = await this._userService.removePermission({id, name});
-      return res.status(HttpStatusCodes.OK).json(new ApiResponse(HttpStatusCodes.OK, updatedUserDoc, Messages.USER.PERMISSION_UPDATED))
+  //     const updatedUserDoc = await this._userService.removePermission({id, name});
+  //     return res.status(HttpStatusCodes.OK).json(new ApiResponse(HttpStatusCodes.OK, updatedUserDoc, Messages.USER.PERMISSION_UPDATED))
 
-    } catch (error) {
-      next(error)
-    }
-  }
+  //   } catch (error) {
+  //     next(error)
+  //   }
+  // }
 
   // to add permission
-  async addPermission(req: Request, res: Response, next: NextFunction){
-    try {
-      const { id } = req.params;
-      const { name } = req.body;
+  // async addPermission(req: Request, res: Response, next: NextFunction){
+  //   try {
+  //     const { id } = req.params;
+  //     const { name } = req.body;
 
-      const updatedDoc = await this._userService.addPermission({id, name});
-      return res.status(HttpStatusCodes.OK).json(new ApiResponse(HttpStatusCodes.OK, updatedDoc, Messages.USER.PERMISSION_UPDATED))
-    } catch (error) {
-      next(error)
-    }
-  }
+  //     const updatedDoc = await this._userService.addPermission({id, name});
+  //     return res.status(HttpStatusCodes.OK).json(new ApiResponse(HttpStatusCodes.OK, updatedDoc, Messages.USER.PERMISSION_UPDATED))
+  //   } catch (error) {
+  //     next(error)
+  //   }
+  // }
 
   // to fetch list of users
   async usersList(req: Request, res: Response, next: NextFunction){
@@ -83,6 +83,19 @@ export default class UserController {
       const role = String(req.query.role);
       const users = await this._userService.usersList(role);
       return res.status(HttpStatusCodes.OK).json(new ApiResponse(HttpStatusCodes.OK, users, Messages.USER.USER_FETCHED));
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  // to manage user permissions
+  async managePermissions(req: Request, res: Response, next: NextFunction){
+    try {
+      const { userId } = req.params;
+      const { permissions } = req.body;
+
+      const updatedUser = await this._userService.managePermissions({userId, permissions})
+      return res.status(HttpStatusCodes.OK).json(new ApiResponse(HttpStatusCodes.OK, updatedUser, Messages.USER.PERMISSION_UPDATED));
     } catch (error) {
       next(error)
     }

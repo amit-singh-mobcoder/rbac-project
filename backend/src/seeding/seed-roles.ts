@@ -25,6 +25,7 @@ export const seedRoles = async () => {
         { name: "update:employees", description: "Permission to update employee data" },
         { name: "create:employees", description: "Permission to create employees" },
         { name: "delete:employees", description: "Permission to delete employees" },
+        { name: "read:roles", description: "Permission to view roles" },
       ],
     },
     {
