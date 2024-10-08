@@ -5,6 +5,7 @@ import { RoleContext } from "../../context/Role";
 import { UserContext } from "../../context/User";
 import TableLayout from "../../components/TableLayout";
 import RoleManagement from "../../modules/RoleManagement";
+import RolePermissionsMatrix from "../../components/RolePermissionsMatrix";
 
 function Admin() {
   const { user, setUser } = useContext(UserContext);
@@ -121,8 +122,9 @@ function Admin() {
         <h1 className="text-3xl font-bold mb-4 text-start mt-4">Managers list</h1>
         <TableLayout userList={managersList} userDefaultPermissions={managerDefaultPermissions} roleName="manager" />
         {/* Role management */}
-        <h1 className="text-3xl font-bold mb-4 text-start mt-4">Role management</h1>
-        <RoleManagement/>
+        {/* <h1 className="text-3xl font-bold mb-4 text-start mt-4">Role management</h1> */}
+        {/* <RoleManagement/> */}
+        <RolePermissionsMatrix/>
       </div>
     </div>
   );
